@@ -65,7 +65,7 @@ public class MovingCube : MonoBehaviour
         cube.transform.position = new Vector3(transform.position.x, transform.position.y, fallingBlockZPosition);
 
         cube.AddComponent<Rigidbody>();
-        cube.GetComponent<Renderer>().material.color = GetRandomColor();
+        cube.GetComponent<Renderer>().material.color = this.GetComponent<Renderer>().material.color;
         Destroy(cube.gameObject, 1f);
     }
 }
