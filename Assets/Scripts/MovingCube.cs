@@ -16,6 +16,16 @@ public class MovingCube : MonoBehaviour
             CurrentCube = this;
     }
 
+    private void OnEnable()
+    {
+        GetComponent<Renderer>().material.color = GetRandomColor();
+    }
+
+    private Color GetRandomColor()
+    {
+        return new Color(UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f), UnityEngine.Random.Range(0, 1f));
+    }
+
     void Update()
     {
         transform.position -= transform.forward * Time.deltaTime * moveSpeed;
@@ -55,6 +65,7 @@ public class MovingCube : MonoBehaviour
         cube.transform.position = new Vector3(transform.position.x, transform.position.y, fallingBlockZPosition);
 
         cube.AddComponent<Rigidbody>();
+        cube.GetComponent<Renderer>().material.color = GetRandomColor();
         Destroy(cube.gameObject, 1f);
     }
 }
