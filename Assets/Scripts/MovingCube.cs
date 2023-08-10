@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovingCube : MonoBehaviour
 {
@@ -8,17 +9,18 @@ public class MovingCube : MonoBehaviour
     public static MovingCube CurrentCube { get; private set; }
     public static MovingCube LastCube { get; private set; }
 
-    private void Awake()
+    private void OnEnable()
     {
         if(gameObject.name == "Start" && LastCube == null)
             LastCube = GameObject.Find("Start").GetComponent<MovingCube>();
         else
             CurrentCube = this;
-    }
 
-    private void OnEnable()
-    {
         GetComponent<Renderer>().material.color = GetRandomColor();
+
+        transform.localScale = new Vector3(LastCube.transform.localScale.x,
+            transform.localScale.y,
+            LastCube.transform.localScale.z);
     }
 
     private Color GetRandomColor()
@@ -35,12 +37,20 @@ public class MovingCube : MonoBehaviour
         moveSpeed = 0f;
 
         float hangover = transform.position.z - LastCube.transform.position.z;
-        float direction = hangover > 0 ? 1f : -1f;
 
+        if (Mathf.Abs(hangover) >= LastCube.transform.localScale.z)
+        {
+            LastCube = null;
+            CurrentCube = null;
+            SceneManager.LoadScene(0);
+        }
+
+        float direction = hangover > 0 ? 1f : -1f;
         SplitCubeOnZ(hangover, direction);
+
     }
 
-    private void SplitCubeOnZ(float hangover, float direction)
+        private void SplitCubeOnZ(float hangover, float direction)
     {
         float newZSize = LastCube.transform.localScale.z - Mathf.Abs(hangover);
         float fallingBlockSize = transform.localScale.z - newZSize;
@@ -67,5 +77,12 @@ public class MovingCube : MonoBehaviour
         cube.AddComponent<Rigidbody>();
         cube.GetComponent<Renderer>().material.color = this.GetComponent<Renderer>().material.color;
         Destroy(cube.gameObject, 1f);
+
+        UpdateLastCubeRef();
+    }
+
+    public void UpdateLastCubeRef()
+    {
+        LastCube = this;
     }
 }

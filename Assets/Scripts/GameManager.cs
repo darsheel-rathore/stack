@@ -6,7 +6,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            MovingCube.CurrentCube.Stop();
+            if (MovingCube.CurrentCube != null)
+                MovingCube.CurrentCube.Stop();
+
+            FindAnyObjectByType<CubeSpawner>().SpawnCube();
+
+            // Start camera upside movement
+            Camera.main.GetComponent<CameraMovement>().gameHasStarted = true;
         }
     }
 }
