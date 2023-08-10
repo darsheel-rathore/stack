@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             MovingCube.CurrentCube.Stop();
         }
