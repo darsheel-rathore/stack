@@ -484,6 +484,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingCube
       objectReference: {fileID: 0}
+    - target: {fileID: 7944799252287233717, guid: c92aa801ea0c5aa4ab7fdcbe3650d5a4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8405388416396897263, guid: c92aa801ea0c5aa4ab7fdcbe3650d5a4, type: 3}
       propertyPath: m_RootOrder
       value: 3
