@@ -40,6 +40,7 @@ public class MovingCube : MonoBehaviour
             transform.position -= transform.right * Time.deltaTime * moveSpeed;
         }
     }
+
     public void Stop()
     {
         moveSpeed = 0f;
@@ -51,7 +52,9 @@ public class MovingCube : MonoBehaviour
         else
             hangover = transform.position.x - LastCube.transform.position.x;
 
-        if (Mathf.Abs(hangover) >= LastCube.transform.localScale.z)
+        float max = MoveDirection == MoveDirection.Z ? LastCube.transform.localScale.z : LastCube.transform.localScale.x;
+
+        if (Mathf.Abs(hangover) >= max)
         {
             LastCube = null;
             CurrentCube = null;

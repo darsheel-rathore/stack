@@ -14,10 +14,12 @@ public class CubeSpawner : MonoBehaviour
 
         if (MovingCube.LastCube != null && MovingCube.LastCube.gameObject.name != "Start")
         {
+            float x = moveDirection == MoveDirection.X ? transform.position.x : MovingCube.LastCube.transform.position.x;
+            float z = moveDirection == MoveDirection.Z ? transform.position.z : MovingCube.LastCube.transform.position.z;
+
+
             cube.transform.position = new Vector3(
-                    transform.position.x,
-                    MovingCube.LastCube.transform.position.y + cubePrefab.transform.localScale.y,
-                    transform.position.z);
+                    x, MovingCube.LastCube.transform.position.y + cubePrefab.transform.localScale.y, z);
         }
         else
         {
