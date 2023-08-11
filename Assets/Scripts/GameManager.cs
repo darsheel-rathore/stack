@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     private CubeSpawner[] spawners;
     private CubeSpawner currentSpawner;
     private int spawnerIndex;
+    [SerializeField] private ScoreEvent scoreEvent;
+    private int score = 0;
 
     private void Awake()
     {
@@ -26,6 +28,17 @@ public class GameManager : MonoBehaviour
             currentSpawner = spawners[spawnerIndex];
 
             currentSpawner.SpawnCube();
+
+            // Calculate the score
+            ScoreCalculator();
+
+            // invoke the event
+            scoreEvent.RaiseEvent(this, score);
         }
+    }
+
+    public void ScoreCalculator()
+    {
+        score++;
     }
 }
