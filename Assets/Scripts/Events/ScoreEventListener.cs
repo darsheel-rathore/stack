@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public class CustomGameEvent : UnityEvent<Component, object> {}
 
-public class ScoreEventListner : MonoBehaviour
+public class ScoreEventListener : MonoBehaviour
 {
     public ScoreEvent _scoreEvent;
     public CustomGameEvent _unityEvent;
