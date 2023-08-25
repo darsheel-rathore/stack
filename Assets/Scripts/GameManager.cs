@@ -119,8 +119,10 @@ public class GameManager : MonoBehaviour
                     // Select the last cube in the array.
                     var lastCube = movingCubes[movingCubes.Length - 1];
 
+
                     // Add a Rigidbody component to the last cube to enable physics simulation.
-                    lastCube.AddComponent<Rigidbody>();
+                    if(lastCube.GetComponent<Rigidbody>() == null)
+                        lastCube.AddComponent<Rigidbody>();
 
                     // Destroy the last cube after a delay of 3 seconds.
                     Destroy(lastCube.gameObject, 3f);
