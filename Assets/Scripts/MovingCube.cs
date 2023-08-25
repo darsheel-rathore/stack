@@ -87,6 +87,9 @@ public class MovingCube : MonoBehaviour
             GameManager.instance.ScoreCalculator();
             // Invoke the score event
             GameManager.instance.RaiseTheScoreCalculationEvent();
+
+            // Play sound
+            GetComponent<AudioSource>().Play();
         }
     }
 
