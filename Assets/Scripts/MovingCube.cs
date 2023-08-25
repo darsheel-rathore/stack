@@ -73,16 +73,25 @@ public class MovingCube : MonoBehaviour
             CurrentCube = null;
 
             // Reload the scene
-            SceneManager.LoadScene(0);
+            //SceneManager.LoadScene(0);
+
         }
 
         float direction = hangover > 0 ? 1f : -1f;
 
-        // Split the cube based on the overhang
-        if (MoveDirection == MoveDirection.Z)
-            SplitCubeOnZ(hangover, direction);
-        else
-            SplitCubeOnX(hangover, direction);
+        if (LastCube != null)
+        {
+            // Split the cube based on the overhang
+            if (MoveDirection == MoveDirection.Z)
+                SplitCubeOnZ(hangover, direction);
+            else
+                SplitCubeOnX(hangover, direction);
+
+            // Calculate the score
+            GameManager.instance.ScoreCalculator();
+            // Invoke the score event
+            GameManager.instance.RaiseTheScoreCalculationEvent();
+        }
     }
 
     // Function to split the cube based on the Z-axis overhang

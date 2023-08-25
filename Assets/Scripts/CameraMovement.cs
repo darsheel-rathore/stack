@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 0.5f; // Speed at which the camera moves
-    public bool gameHasStarted = false; // Indicates if the game has started
+    private float moveSpeed = 0.065f; // Speed at which the camera moves 0.075f
 
     void Update()
     {
-        if (!gameHasStarted)
+        if (!GameManager.isGameStarted)
             return; // If the game hasn't started, don't move the camera
 
         // Move the camera upward based on the moveSpeed and frame rate
