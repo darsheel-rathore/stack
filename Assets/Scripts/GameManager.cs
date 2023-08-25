@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) // Check for left mouse button click
         {
-            if (MovingCube.CurrentCube != null)
+            if (MovingCube.CurrentCube != null && MovingCube.LastCube != null)
                 MovingCube.CurrentCube.Stop(); // Stop the current moving cube
 
             // Start the game

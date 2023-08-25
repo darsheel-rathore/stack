@@ -71,10 +71,6 @@ public class MovingCube : MonoBehaviour
         {
             LastCube = null;
             CurrentCube = null;
-
-            // Reload the scene
-            //SceneManager.LoadScene(0);
-
         }
 
         float direction = hangover > 0 ? 1f : -1f;
@@ -174,6 +170,9 @@ public class MovingCube : MonoBehaviour
     // Function to calculate the overhang based on the movement direction
     public float GetHangOver()
     {
+        if (LastCube == null)
+            return 0;
+
         if (MoveDirection == MoveDirection.Z)
             return transform.position.z - LastCube.transform.position.z;
         else
