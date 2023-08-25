@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private int highScore = 0; // The high score
 
     public static bool isGameStarted = false;
+    public static bool isCollidedWithDestroyer = false;
 
     public GameObject welcomeMsgText;
     public GameObject clickToPlayText;
@@ -41,6 +42,12 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", 0);
             highScore = PlayerPrefs.GetInt("HighScore");
         }
+    }
+
+    private void OnEnable()
+    {
+        isGameStarted = false;
+        isCollidedWithDestroyer = false;
     }
 
     private void Start()
@@ -95,14 +102,18 @@ public class GameManager : MonoBehaviour
                 DisableUI();
                 highScoreText.GetComponent<TextMeshProUGUI>().text = $"High Score: {highScore}";
                 gameOverText.SetActive(true);
+                scoreText.SetActive(true);
                 highScoreText.SetActive(true);
                 returnToHomeText.SetActive(true);
-                
+
                 // Let the cube fall to the ground
-                GameObject[] movingCubes = GameObject.FindGameObjectsWithTag("MovingCube");
-                var lastCube = movingCubes[movingCubes.Length - 1];
-                lastCube.AddComponent<Rigidbody>();
-                Destroy(lastCube.gameObject, 3f);
+                if (!isCollidedWithDestroyer)
+                {
+                    GameObject[] movingCubes = GameObject.FindGameObjectsWithTag("MovingCube");
+                    var lastCube = movingCubes[movingCubes.Length - 1];
+                    lastCube.AddComponent<Rigidbody>();
+                    Destroy(lastCube.gameObject, 3f);
+                }
             }
         }
     }

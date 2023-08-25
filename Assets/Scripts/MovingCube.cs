@@ -8,7 +8,7 @@ public class MovingCube : MonoBehaviour
 
     // Properties to keep track of the current and last cubes
     public static MovingCube CurrentCube { get; private set; }
-    public static MovingCube LastCube { get; private set; }
+    public static MovingCube LastCube { get; set; }
 
     // Property to specify the cube's movement direction
     public MoveDirection MoveDirection { get; internal set; }
