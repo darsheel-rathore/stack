@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         // Set the high score
         highScoreText.GetComponent<TextMeshProUGUI>().text = $"High Score: {highScore}";
 
+        // Manager UI
         DisableUI();
         welcomeMsgText.SetActive(true);
         highScoreText.SetActive(true);
@@ -92,26 +93,36 @@ public class GameManager : MonoBehaviour
         }
 
         // Game Over calculations
+        // Check if the last cube has fallen off, triggering game over.
         if (MovingCube.LastCube == null)
         {
+            // If the game was already started, perform game over actions.
             if (isGameStarted)
             {
+                // Indicate that the game is no longer running.
                 isGameStarted = false;
 
-                // Show the Game over UI
-                DisableUI();
+                // Show the game over UI elements and update high score if applicable.
+                DisableUI(); // Hides in-game UI elements.
                 highScoreText.GetComponent<TextMeshProUGUI>().text = $"High Score: {highScore}";
-                gameOverText.SetActive(true);
-                scoreText.SetActive(true);
+                gameOverText.SetActive(true); 
+                scoreText.SetActive(true); 
                 highScoreText.SetActive(true);
                 returnToHomeText.SetActive(true);
 
-                // Let the cube fall to the ground
+                // If the player's cube hasn't collided with the destroyer, let it fall to the ground.
                 if (!isCollidedWithDestroyer)
                 {
+                    // Find all game objects with the "MovingCube" tag.
                     GameObject[] movingCubes = GameObject.FindGameObjectsWithTag("MovingCube");
+
+                    // Select the last cube in the array.
                     var lastCube = movingCubes[movingCubes.Length - 1];
+
+                    // Add a Rigidbody component to the last cube to enable physics simulation.
                     lastCube.AddComponent<Rigidbody>();
+
+                    // Destroy the last cube after a delay of 3 seconds.
                     Destroy(lastCube.gameObject, 3f);
                 }
             }
